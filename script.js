@@ -1,4 +1,4 @@
-const apiKey = `be2e652eadecd0ab86fed7f67f24a62c`
+const apiKey = `be2e652eadecd0ab86fed7f67f24a62c`;
 // FOR API KEY
 // Go to the link-  https://home.openweathermap.org/api_keys
 // Sign in
@@ -15,11 +15,6 @@ async function fetchWeatherData(city) {
         }
         const data = await response.json();
         console.log(data);
-        // console.log(data.main.temp);
-        // console.log(data.name);
-        // console.log(data.wind.speed);
-        // console.log(data.main.humidity);
-        // console.log(data.visibility);
         updateWeatherUI(data);
     } catch (error) {
         console.error(error);
@@ -36,11 +31,13 @@ const descriptionText = document.querySelector(".description-text");
 const date = document.querySelector(".date");
 const descriptionIcon = document.querySelector(".description i");
 
-// fetchWeatherData();
-
 function updateWeatherUI(data) {
     cityElement.textContent = data.name;
-    temperature.textContent = `${Math.round(data.main.temp)}`;
+    
+    // Convert temperature from Kelvin to Celsius
+    const tempInCelsius = Math.round(data.main.temp - 273.15);
+    temperature.textContent = `${tempInCelsius}°C`;
+
     windSpeed.textContent = `${data.wind.speed} km/h`;
     humidity.textContent = `${data.main.humidity}%`;
     visibility.textContent = `${data.visibility / 1000} km`;
